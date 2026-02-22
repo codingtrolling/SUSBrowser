@@ -1,53 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/coordinator_layout"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="?android:attr/colorBackground"
-	tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-		android:id="@+id/pullfresh"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+    <!-- URL bar -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+        <EditText
+            android:id="@+id/urlEditText"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter URL" />
 
-			<WebView
-				android:id="@+id/msw_view"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:visibility="gone" />
+        <Button
+            android:id="@+id/goButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go" />
 
-			<WebView
-				android:id="@+id/print_view"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:visibility="gone" />
+        <Button
+            android:id="@+id/newTabButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+Tab" />
 
-			<include layout="@layout/welcome_splash" />
-			<include layout="@layout/security_overlay" />
-		</RelativeLayout>
-	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
 
-	<!-- Ad Container and Progress Bar -->
-	<LinearLayout
-		android:id="@+id/msw_ad_container"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_gravity="bottom"
-		android:orientation="vertical"/>
-	<ProgressBar
-		android:id="@+id/msw_progress"
-		style="?android:attr/progressBarStyleHorizontal"
-		android:layout_width="match_parent"
-		android:layout_height="3dp"
-		android:layout_gravity="bottom"
-		android:progressDrawable="@drawable/progress_style"
-		android:visibility="visible" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <!-- Tabs / WebViews -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>
