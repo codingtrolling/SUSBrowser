@@ -37,7 +37,7 @@ android {
 	compileSdk swvProps.getProperty('build.sdk.compile', '36').toInteger()
 
 	defaultConfig {
-		applicationId swvProps.getProperty('build.application.id', 'mgks.os.swv')
+		applicationId swvProps.getProperty('build.application.id', 'com.codingtrolling.browser')
 		minSdk swvProps.getProperty('build.sdk.min', '24').toInteger()
 		targetSdk swvProps.getProperty('build.sdk.compile', '36').toInteger()
 		versionCode swvProps.getProperty('build.version.code', '1').toInteger()
