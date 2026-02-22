@@ -1,4 +1,4 @@
-package mgks.os.swv;
+package com.codingtrolling.browser;
 
 /*
   Smart WebView v8
