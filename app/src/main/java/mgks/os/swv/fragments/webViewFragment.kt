@@ -1,4 +1,4 @@
-package com.YOURAPP.fragments
+package com.codingtrolling.browser
 
 import android.os.Bundle
 import android.view.LayoutInflater
