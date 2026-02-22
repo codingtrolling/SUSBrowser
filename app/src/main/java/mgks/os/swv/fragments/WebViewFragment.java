@@ -1,67 +1,66 @@
-package com.codingtrolling.browser
+package com.codingtroing.browser.fragments;
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.webkit.CookieManager
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.fragment.app.Fragment
-import com.YOURAPP.R
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
-class WebViewFragment(
-    private val url: String,
-    private val incognito: Boolean = false
-) : Fragment() {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-    private lateinit var webView: WebView
+import com.trollfaces.mybrowser.R;
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.fragment_webview, container, false)
-        webView = view.findViewById(R.id.webView)
+public class WebViewFragment extends Fragment {
 
-        // WebView setup
-        webView.webViewClient = WebViewClient()
-        webView.settings.javaScriptEnabled = true
-        webView.settings.domStorageEnabled = true
+    private String url;
+    private boolean incognito;
+    private WebView webView;
 
-        // Dark mode support
-        if (WebSettings.FORCE_DARK_ON == 1) {
-            webView.settings.forceDark = WebSettings.FORCE_DARK_ON
-        }
+    public WebViewFragment(String url, boolean incognito) {
+        this.url = url;
+        this.incognito = incognito;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_webview, container, false);
+        webView = view.findViewById(R.id.webView);
+
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+
+        // Dark Mode
+        webView.getSettings().setForceDark(WebSettings.FORCE_DARK_ON);
 
         // Incognito / private mode
         if (incognito) {
-            webView.settings.apply {
-                setAppCacheEnabled(false)
-                saveFormData = false
-            }
-            webView.apply {
-                clearHistory()
-                clearCache(true)
-                clearFormData()
-                CookieManager.getInstance().removeAllCookies(null)
-                CookieManager.getInstance().flush()
-            }
+            webView.clearHistory();
+            webView.clearCache(true);
+            webView.clearFormData();
+            CookieManager.getInstance().removeAllCookies(null);
+            CookieManager.getInstance().flush();
         }
 
-        // Load URL
-        webView.loadUrl(url)
+        webView.loadUrl(url);
 
-        return view
+        return view;
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // Clean up WebView to prevent memory leaks
-        webView.stopLoading()
-        webView.webViewClient = null
-        webView.destroy()
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        webView.stopLoading();
+        webView.setWebViewClient(null);
+        webView.destroy();
     }
 }
